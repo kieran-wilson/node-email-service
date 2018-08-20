@@ -1,0 +1,20 @@
+.multi-email {
+  height: auto;
+  &--input {
+    width: 100%;
+    border: 0;
+    &:focus {
+      outline: 0;
+    }
+  }
+  &--email {
+    cursor: pointer;
+  }
+  &--remove {
+    font-size: 0.8rem;
+    color: #fff;
+    & span {
+      padding: 0 5px 0 6px;
+    }
+  }
+}

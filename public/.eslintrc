@@ -1,0 +1,43 @@
+{
+	"parser": "babel-eslint",
+	"env": {
+		"browser": true,
+		"commonjs": true,
+		"es6": true,
+		"node": true
+	},
+	"extends": ["eslint:recommended", "plugin:prettier/recommended", "plugin:react/recommended", "plugin:import/errors", "plugin:import/warnings"],
+	"parserOptions": {
+		"ecmaFeatures": {
+			"experimentalObjectRestSpread": true,
+			"jsx": true
+		},
+		"sourceType": "module"
+	},
+	"plugins": ["react", "import"],
+	"settings": {
+		"import/external-module-folders": ["src"],
+		"import/resolver": {
+			"node": {
+				"extensions": [".js", ".jsx"],
+				"paths": ["src"]
+			}
+		}
+	},
+	"rules": {
+		"react/prop-types": ["off"],
+		"quotes": ["error", "single"],
+		"prettier/prettier": ["error", {
+			"singleQuote": true
+		}],
+		"import/order": ["error", {"groups": ["internal", "external", "builtin", "index", "sibling", "parent"]}]
+	},
+	"overrides": [
+		{
+			"files": [ "**/__tests__/*.js", "*.test.js", "setupTests.js" ],
+			"env": {
+				"jest": true
+			}
+		}
+	]
+}

@@ -1,0 +1,17 @@
+.slideIn {
+  &-enter {
+    opacity: 0.01;
+  }
+  &-enter#{&}-enter-active {
+    opacity: 1;
+    transition: 500ms;
+  }
+  &-exit {
+    opacity: 1;
+    transition: opacity 300ms ease, height 400ms ease 300ms;
+  }
+  &-exit#{&}-exit-active {
+    opacity: 0.01;
+    height: 0px;
+  }
+}
