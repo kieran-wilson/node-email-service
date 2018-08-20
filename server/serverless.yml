@@ -1,0 +1,31 @@
+service: serverless-email-service
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+plugins:
+- serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  environment:
+    EMAIL_KEY: ${file(./secrets/secrets.json):EMAIL_KEY}
+    MAILGUN_API_KEY: ${file(./secrets/secrets.json):MAILGUN_API_KEY}
+    MAILGUN_DOMAIN: ${file(./secrets/secrets.json):MAILGUN_DOMAIN}
+
+functions:
+  checkKey:
+    handler: handlers/checkKey.checkKey
+    events:
+    - http:
+        path: check-key
+        method: post
+        cors: true
+
+  sendEmail:
+    handler: handlers/sendEmail.sendEmail
+    events:
+    - http:
+        path: send-email
+        method: post
+        cors: true
