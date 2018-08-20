@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import { pickBy, merge } from 'ramda';
+import { pickBy, merge, keys, mergeAll, map } from 'ramda';
 import createContext from 'create-react-context';
-import {nilOrEmpty} from '../../../utils/ramdaUtils';
+import { nilOrEmpty } from 'utils/ramdaUtils';
 
 const filterErrors = pickBy(d => !!d);
 
@@ -9,7 +9,8 @@ const FormContext = createContext({
   values: {},
   errors: {},
   setValidator: () => {},
-  setValue: () => {}
+  setValue: () => {},
+  setAllTouched: () => {}
 });
 
 export function withForm(Component, options = {}) {
@@ -24,6 +25,7 @@ export function withForm(Component, options = {}) {
       this.state = {
         values: merge(options.defaultValues, props.defaultValues),
         errors: {},
+        setAllTouched: this.setAllTouched,
         setValidator: this.setValidator,
         setValue: this.setValue,
         touched: {}
@@ -34,11 +36,12 @@ export function withForm(Component, options = {}) {
       return (
         <FormContext.Provider value={this.state}>
           <FormContext.Consumer>
-            {({ values, errors, setValidator, setValue, touched }) => (
+            {({ values, errors, setValidator, setValue, touched, setAllTouched }) => (
               <Component
                 formValues={values}
                 touchedFormValues={touched}
                 setFormValidator={setValidator}
+                setAllTouched={setAllTouched}
                 setFormValue={setValue}
                 formErrors={errors}
                 {...this.props}
@@ -47,6 +50,13 @@ export function withForm(Component, options = {}) {
           </FormContext.Consumer>
         </FormContext.Provider>
       );
+    }
+
+    setAllTouched = () => {
+      console.log(keys(this.state.values));
+      this.setState(state => ({
+        touched: mergeAll(map(key => ({[key]: true}), keys(state.values)))
+      }));
     }
 
     setValue = (name, value) => {

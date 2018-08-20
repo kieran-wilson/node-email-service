@@ -34,10 +34,6 @@ export default class MultiEmail extends React.PureComponent {
     currentInput: ''
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   removeEmail(email) {
     const newList = filter(value => value !== email, this.props.value);
     const event = {

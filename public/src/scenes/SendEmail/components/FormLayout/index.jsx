@@ -42,6 +42,16 @@ export default class FormLayout extends React.PureComponent {
               />
               <ErrorMessage name="toAddress" />
             </FormGroup>
+            <FormGroup>
+              <Label for="toAddress">Subject:</Label>
+              <Input
+                component={InputStrap}
+                name="subject"
+                id="subject"
+                placeholder="Email Subject"
+              />
+              <ErrorMessage name="subject" />
+            </FormGroup>
             <Container className="pb-2">
               <Row>
                 <Col xs="auto" className="pl-0">

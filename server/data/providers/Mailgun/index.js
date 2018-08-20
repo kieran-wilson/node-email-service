@@ -4,8 +4,9 @@ const { reject } = require('ramda');
 const { nilOrEmpty } = require('../../../utils/ramdaUtils');
 const MailgunAPI = require('../../../data/api/mailgun');
 const ProviderBaseClass = require('../ProviderBaseClass');
+const apiConfig = require("../../../config/mailgun");
 
-const mailgunAPI = new MailgunAPI()
+const mailgunAPI = new MailgunAPI();
 
 class Mailgun extends ProviderBaseClass {
   /**
@@ -15,10 +16,10 @@ class Mailgun extends ProviderBaseClass {
     return reject(
       nilOrEmpty,
       {
-        from: email.getTo(),
+        from: apiConfig.FROM_ADDRESS,
         to: email.getTo(),
         subject: email.getSubject(),
-        message: email.getMessage(),
+        text: email.getMessage(),
         bcc: email.getBCC(),
         cc: email.getCC()
       });
