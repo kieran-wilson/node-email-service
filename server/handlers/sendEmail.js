@@ -23,6 +23,9 @@ module.exports.sendEmail = (event, context, callback) => {
     .then(function () {
       const response = {
         statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        },
         body: JSON.stringify('Success')
       }
       callback(null, response)
@@ -30,6 +33,9 @@ module.exports.sendEmail = (event, context, callback) => {
     .catch(function (error) {
       const response = {
         statusCode: 400,
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        },
         body: JSON.stringify(error.toString())
       }
       callback(null, response)

@@ -13,6 +13,9 @@ module.exports.checkKey = (event, context, callback) => {
   // create a response
   const response = {
     statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
     body: JSON.stringify('Success')
   }
   callback(null, response)
