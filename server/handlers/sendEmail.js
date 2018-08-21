@@ -1,25 +1,37 @@
-'use strict';
+'use strict'
 
-const Email = require('../data/Email');
-const mailgun = require('../data/providers/Mailgun');
+const Email = require('../data/Email')
+const EmailService = require('../data/EmailService')
+const mailgun = require('../data/providers/Mailgun')
+const sendgrid = require('../data/providers/SendGrid')
+const keyHandler = require('../utils/keyHandler')
 
-module.exports.sendEmail = async (event, context, callback) => {
-  const data = JSON.parse(event.body);
+EmailService.addProvider(mailgun)
+EmailService.addProvider(sendgrid)
 
-  const email = new Email(data);
-  try {
-    const result = await mailgun.sendEmail(email);
-    // create a response
-    const response = {
-      statusCode: 200,
-      body: JSON.stringify('Success'),
-    };
-    callback(null, response);
-  } catch (error) {
-    const response = {
-      statusCode: 400,
-      body: JSON.stringify(error.toString()),
-    };
-    callback(null, response);
+module.exports.sendEmail = (event, context, callback) => {
+  const data = JSON.parse(event.body)
+  const validKey = keyHandler(data.key)
+  if (validKey !== true) {
+    console.error('Validation Failed')
+    callback(null, validKey)
+    return
   }
-};
+
+  const email = new Email(data)
+  EmailService.sendEmail(email)
+    .then(function () {
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify('Success')
+      }
+      callback(null, response)
+    })
+    .catch(function (error) {
+      const response = {
+        statusCode: 400,
+        body: JSON.stringify(error.toString())
+      }
+      callback(null, response)
+    })
+}

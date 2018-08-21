@@ -1,16 +1,16 @@
-const axios = require('axios');
+const axios = require('axios')
 
 module.exports = class APIUtil {
-  constructor(root) {
-    this.root = root;
+  constructor (root) {
+    this.root = root
   }
 
-  get(path, config) {
-    return get(path, config, this.root);
+  get (path, config) {
+    return get(path, config, this.root)
   }
 
-  post(path, data, config) {
-    return post(path, data, config, this.root);
+  post (path, data, config) {
+    return post(path, data, config, this.root)
   }
 }
 
@@ -20,8 +20,8 @@ module.exports = class APIUtil {
  * @param path
  * @returns {AxiosPromise}
  */
-function get(path, config = {}, root) {
-  return axios.get(`${root}/${path}`, config);
+function get (path, config = {}, root) {
+  return axios.get(`${root}/${path}`, config)
 }
 
 /**
@@ -32,6 +32,6 @@ function get(path, config = {}, root) {
  * @param config
  * @returns {AxiosPromise}
  */
-function post(path, data, config = {}, root) {
-  return axios.post(`${root}/${path}`, data, config);
+function post (path, data, config = {}, root) {
+  return axios.post(`${root}/${path}`, data, config)
 }

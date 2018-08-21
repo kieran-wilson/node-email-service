@@ -12,6 +12,7 @@ provider:
     EMAIL_KEY: ${file(./secrets/secrets.json):EMAIL_KEY}
     MAILGUN_API_KEY: ${file(./secrets/secrets.json):MAILGUN_API_KEY}
     MAILGUN_DOMAIN: ${file(./secrets/secrets.json):MAILGUN_DOMAIN}
+    SENDGRID_KEY: ${file(./secrets/secrets.json):SENDGRID_KEY}
 
 functions:
   checkKey:

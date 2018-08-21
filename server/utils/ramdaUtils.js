@@ -1,3 +1,3 @@
-const { either, isNil, isEmpty } = require('ramda');
+const { either, isNil, isEmpty } = require('ramda')
 
-module.exports.nilOrEmpty = either(isNil, isEmpty);
+module.exports.nilOrEmpty = either(isNil, isEmpty)
