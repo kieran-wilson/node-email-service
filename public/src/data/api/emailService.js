@@ -1,5 +1,6 @@
-import APIUtil from './index';
+import { merge } from 'ramda';
 import apiConfig from 'config/emailService';
+import APIUtil from './index';
 
 const api = new APIUtil(apiConfig.HOST);
 
@@ -9,7 +10,8 @@ export class EmailService {
    * @returns {AxiosPromise}
    */
   sendEmail(emailData) {
-    return api.post(apiConfig.ROUTES.SEND_EMAIL, emailData);
+    const postData = merge({ key: localStorage.getItem('keycode') }, emailData);
+    return api.post(apiConfig.ROUTES.SEND_EMAIL, postData);
   }
 
   /**
@@ -17,7 +19,7 @@ export class EmailService {
    * @returns {AxiosPromise}
    */
   checkKey(key) {
-    return api.post(apiConfig.ROUTES.SEND_EMAIL, { key: key});
+    return api.post(apiConfig.ROUTES.CHECK_KEY, { key: key });
   }
 }
 

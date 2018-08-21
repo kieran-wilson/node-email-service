@@ -42,11 +42,6 @@ export default class Header extends React.PureComponent {
                 Send Email
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to={routes.ROUTES.DASHBOARD}>
-                Dashboard
-              </NavLink>
-            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>

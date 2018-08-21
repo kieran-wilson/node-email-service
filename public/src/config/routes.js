@@ -1,7 +1,6 @@
 export default {
   ROUTES: {
-    DASHBOARD: '/',
-    LOGIN: '/login',
+    LOGIN: '/',
     SEND_EMAIL: '/send-email'
   }
 };

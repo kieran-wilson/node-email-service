@@ -36,7 +36,14 @@ export function withForm(Component, options = {}) {
       return (
         <FormContext.Provider value={this.state}>
           <FormContext.Consumer>
-            {({ values, errors, setValidator, setValue, touched, setAllTouched }) => (
+            {({
+              values,
+              errors,
+              setValidator,
+              setValue,
+              touched,
+              setAllTouched
+            }) => (
               <Component
                 formValues={values}
                 touchedFormValues={touched}
@@ -44,6 +51,7 @@ export function withForm(Component, options = {}) {
                 setAllTouched={setAllTouched}
                 setFormValue={setValue}
                 formErrors={errors}
+                resetForm={this.resetAll}
                 {...this.props}
               />
             )}
@@ -53,11 +61,20 @@ export function withForm(Component, options = {}) {
     }
 
     setAllTouched = () => {
-      console.log(keys(this.state.values));
       this.setState(state => ({
-        touched: mergeAll(map(key => ({[key]: true}), keys(state.values)))
+        touched: mergeAll(map(key => ({ [key]: true }), keys(state.values)))
       }));
-    }
+    };
+
+    resetAll = () => {
+      const newValues = map(() => '', this.state.values);
+      const newTouched = map(() => false, this.state.touched);
+      this.setState({
+        values: newValues,
+        errors: filterErrors(this.validator(newValues)),
+        touched: newTouched
+      });
+    };
 
     setValue = (name, value) => {
       this.setState(state => {
